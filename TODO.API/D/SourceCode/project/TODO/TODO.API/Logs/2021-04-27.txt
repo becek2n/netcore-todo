@@ -1,0 +1,46 @@
+27-04-2021 13:16:39 [E] AutoMapper.AutoMapperMappingException: Missing type map configuration or unsupported mapping.
+
+Mapping types:
+TaskDTO -> Task
+TODO.DTO.TaskDTO -> TODO.Repository.Models.Task
+   at lambda_method13(Closure , TaskDTO , Task , ResolutionContext )
+   at TODO.DAO.TaskDAO.Add(TaskDTO model) in D:\Source Code\project\TODO\TODO.DAO\TaskDAO.cs:line 33
+27-04-2021 13:16:39 [E] 
+27-04-2021 13:16:39 [E]    at TODO.DAO.TaskDAO.Add(TaskDTO model) in D:\Source Code\project\TODO\TODO.DAO\TaskDAO.cs:line 40
+
+==========================================================================================================
+
+27-04-2021 13:29:20 [E] Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException: Database operation expected to affect 1 row(s) but actually affected 0 row(s). Data may have been modified or deleted since entities were loaded. See http://go.microsoft.com/fwlink/?LinkId=527962 for information on understanding and handling optimistic concurrency exceptions.
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ThrowAggregateUpdateConcurrencyException(Int32 commandIndex, Int32 expectedRowsAffected, Int32 rowsAffected)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetWithoutPropagation(Int32 commandIndex, RelationalDataReader reader)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.Consume(RelationalDataReader reader)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.Execute(IEnumerable`1 commandBatches, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChanges(IList`1 entries)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(IList`1 entriesToSave)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(DbContext _, Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges()
+   at TODO.DAO.TaskDAO.Update(Int32 id, TaskDTO model) in D:\Source Code\project\TODO\TODO.DAO\TaskDAO.cs:line 133
+27-04-2021 13:29:20 [E] 
+27-04-2021 13:29:20 [E]    at TODO.DAO.TaskDAO.Update(Int32 id, TaskDTO model) in D:\Source Code\project\TODO\TODO.DAO\TaskDAO.cs:line 141
+
+==========================================================================================================
+
+27-04-2021 13:32:51 [E] System.InvalidOperationException: The property 'Task.Id' is part of a key and so cannot be modified or marked as modified. To change the principal of an existing entity with an identifying foreign key, first delete the dependent and invoke 'SaveChanges', and then associate the dependent with the new principal.
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.InternalEntityEntry.SetPropertyModified(IProperty property, Boolean changeState, Boolean isModified, Boolean isConceptualNull, Boolean acceptChanges)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.ChangeDetector.<LocalDetectChanges>g__SetPropertyModified|12_0(<>c__DisplayClass12_0& , <>c__DisplayClass12_1& , <>c__DisplayClass12_2& )
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.ChangeDetector.LocalDetectChanges(InternalEntityEntry entry)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.ChangeDetector.DetectChanges(InternalEntityEntry entry, HashSet`1 visited)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.ChangeDetector.DetectChanges(InternalEntityEntry entry)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry.DetectChanges()
+   at Microsoft.EntityFrameworkCore.DbContext.TryDetectChanges(EntityEntry entry)
+   at Microsoft.EntityFrameworkCore.DbContext.Entry[TEntity](TEntity entity)
+   at TODO.DAO.TaskDAO.Update(Int32 id, TaskDTO model) in D:\Source Code\project\TODO\TODO.DAO\TaskDAO.cs:line 135
+27-04-2021 13:32:51 [E] 
+27-04-2021 13:32:51 [E]    at TODO.DAO.TaskDAO.Update(Int32 id, TaskDTO model) in D:\Source Code\project\TODO\TODO.DAO\TaskDAO.cs:line 150
+
+==========================================================================================================
+

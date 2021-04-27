@@ -1,0 +1,9 @@
+D:\Source Code\project\TODO\TODO.DTO\bin\Debug\netcoreapp3.1\TODO.DTO.deps.json
+D:\Source Code\project\TODO\TODO.DTO\bin\Debug\netcoreapp3.1\TODO.DTO.dll
+D:\Source Code\project\TODO\TODO.DTO\bin\Debug\netcoreapp3.1\TODO.DTO.pdb
+D:\Source Code\project\TODO\TODO.DTO\obj\Debug\netcoreapp3.1\TODO.DTO.csprojAssemblyReference.cache
+D:\Source Code\project\TODO\TODO.DTO\obj\Debug\netcoreapp3.1\TODO.DTO.AssemblyInfoInputs.cache
+D:\Source Code\project\TODO\TODO.DTO\obj\Debug\netcoreapp3.1\TODO.DTO.AssemblyInfo.cs
+D:\Source Code\project\TODO\TODO.DTO\obj\Debug\netcoreapp3.1\TODO.DTO.csproj.CoreCompileInputs.cache
+D:\Source Code\project\TODO\TODO.DTO\obj\Debug\netcoreapp3.1\TODO.DTO.dll
+D:\Source Code\project\TODO\TODO.DTO\obj\Debug\netcoreapp3.1\TODO.DTO.pdb

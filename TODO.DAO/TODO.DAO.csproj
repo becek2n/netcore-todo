@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TODO.Helpers\TODO.Helpers.csproj" />
+    <ProjectReference Include="..\TODO.Interfaces\TODO.Interfaces.csproj" />
+    <ProjectReference Include="..\TODO.Repository\TODO.Repository.csproj" />
+  </ItemGroup>
+
+</Project>
