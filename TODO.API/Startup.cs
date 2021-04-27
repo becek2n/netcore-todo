@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -13,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TODO.API.Helpers;
 using TODO.DAO;
 using TODO.Helpers;
 using TODO.Interfaces;
@@ -47,10 +49,12 @@ namespace TODO.API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "TODO.API", Version = "v1" });
             });
 
+            
             //config
             services.Configure<ConfigurationLogging>(Configuration.GetSection("Logging"));
             
             //dao
+            services.AddScoped<IUser, UserDAO>();
             services.AddScoped<ITask, TaskDAO>();
             services.AddScoped<ILogging, Logging>();
 
@@ -68,6 +72,11 @@ namespace TODO.API
             {
                 options.UseSqlServer(Configuration.GetConnectionString("TODO"), sqlServerOption => sqlServerOption.CommandTimeout(300));
             });
+
+            //basic authentication 
+            services.AddAuthentication("BasicAuthentication")
+                .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -84,6 +93,7 @@ namespace TODO.API
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

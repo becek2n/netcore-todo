@@ -14,6 +14,7 @@ namespace TODO.Helpers
             CreateMap<Task, TaskDTO>();
             CreateMap<TaskDTO, Task>();
             CreateMap<TaskEditDTO, Task>();
+            CreateMap<User, UserDTO>();
         }
     }
 }

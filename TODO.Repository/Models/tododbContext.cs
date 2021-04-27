@@ -1,6 +1,8 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using BC = BCrypt.Net.BCrypt;
+
 
 #nullable disable
 
@@ -83,9 +85,18 @@ namespace TODO.Repository.Models
                     .HasMaxLength(20)
                     .IsUnicode(false)
                     .HasColumnName("username");
+
+                entity.Property(e => e.Username)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("fullname");
             });
 
             OnModelCreatingPartial(modelBuilder);
+
+            modelBuilder.Entity<User>().HasData(
+                new User() { Id = 1, Username = "test", Password = BC.HashPassword("P@ssw0rd") }
+            );
 
             modelBuilder.Entity<Task>().HasData(
                 new Task() { Id = 1, Name = "task 1", Day = DateTime.Parse("2021-01-01"), Status = false, },

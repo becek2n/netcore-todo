@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-#nullable disable
-
-namespace TODO.Repository.Models
+namespace TODO.DTO
 {
-    public partial class User
+    public class UserDTO
     {
         public int Id { get; set; }
         public string Username { get; set; }
         public string Fullname { get; set; }
-        public string Password { get; set; }
     }
 }
