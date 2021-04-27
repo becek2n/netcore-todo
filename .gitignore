@@ -1,0 +1,14 @@
+/.vs
+/TODO.API/bin
+/TODO.API/obj
+/TODO.API/Properties
+/TODO.DAO/bin
+/TODO.DAO/obj
+/TODO.DTO/bin
+/TODO.DTO/obj
+/TODO.Helpers/bin
+/TODO.Helpers/obj
+/TODO.Interfaces/bin
+/TODO.Interfaces/obj
+/TODO.Repository/bin
+/TODO.Repository/obj
