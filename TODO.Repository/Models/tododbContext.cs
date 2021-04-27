@@ -86,7 +86,7 @@ namespace TODO.Repository.Models
                     .IsUnicode(false)
                     .HasColumnName("username");
 
-                entity.Property(e => e.Username)
+                entity.Property(e => e.Fullname)
                     .HasMaxLength(50)
                     .IsUnicode(false)
                     .HasColumnName("fullname");
@@ -95,7 +95,7 @@ namespace TODO.Repository.Models
             OnModelCreatingPartial(modelBuilder);
 
             modelBuilder.Entity<User>().HasData(
-                new User() { Id = 1, Username = "test", Password = BC.HashPassword("P@ssw0rd") }
+                new User() { Id = 1, Username = "test", Fullname = "Testing User", Password = BC.HashPassword("P@ssw0rd") }
             );
 
             modelBuilder.Entity<Task>().HasData(

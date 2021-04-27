@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TODO.Repository.Models;
 
 namespace TODO.Repository.Migrations
 {
     [DbContext(typeof(tododbContext))]
-    partial class tododbContextModelSnapshot : ModelSnapshot
+    [Migration("20210427073722_seeddata-user-fullname")]
+    partial class seeddatauserfullname
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

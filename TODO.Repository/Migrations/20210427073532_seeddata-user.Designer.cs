@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TODO.Repository.Models;
 
 namespace TODO.Repository.Migrations
 {
     [DbContext(typeof(tododbContext))]
-    partial class tododbContextModelSnapshot : ModelSnapshot
+    [Migration("20210427073532_seeddata-user")]
+    partial class seeddatauser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -383,8 +385,7 @@ namespace TODO.Repository.Migrations
                         new
                         {
                             Id = 1,
-                            Fullname = "Testing User",
-                            Password = "$2a$11$tdMcp6u8dHAl4xysc05xcOOJpHoQJ/MhpQ58Aa4YKefmAtVTJgxj2",
+                            Password = "$2a$11$/h6889L5wfCTOi9BOgKlmOQ8YOYndh4QTv0C50g20UYUm0U9pYY42",
                             Username = "test"
                         });
                 });
