@@ -10,5 +10,6 @@ namespace TODO.Interfaces
         ResultModel<object> Update(int id, TaskEditDTO model);
         ResultModel<object> Delete(int id);
         ResultModel<PagedResult<TaskDTO>> GetAll(int pageIndex, int pageSize, string search);
+        ResultModel<TaskDTO> GetId(int id);
     }
 }

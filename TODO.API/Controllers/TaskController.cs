@@ -28,6 +28,12 @@ namespace TODO.API.Controllers
             return Ok(_task.GetAll(index, size, search));
         }
 
+        [HttpGet("{id}")]
+        public ActionResult GetId(int id)
+        {
+            return Ok(_task.GetId(id));
+        }
+
         [HttpPost]
         public ActionResult Post(TaskDTO model)
         {

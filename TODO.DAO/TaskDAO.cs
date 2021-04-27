@@ -119,6 +119,30 @@ namespace TODO.DAO
             return result;
         }
 
+        public ResultModel<TaskDTO> GetId(int id)
+        {
+            ResultModel<TaskDTO> result = new ResultModel<TaskDTO>();
+            try
+            {
+                var mapperConfig = new MapperConfiguration(mc => { mc.AddProfile(new MappingProfile()); });
+
+                var data = _context.Tasks
+                    .Where(x => x.Id == id)
+                    .ProjectTo<TaskDTO>(mapperConfig)
+                    .FirstOrDefault();
+
+                result.SetSuccess("success", data);
+
+            }
+            catch (Exception ex)
+            {
+                result.SetFailed(ex.Message);
+                _logging.WriteErr(ex);
+            }
+
+            return result;
+        }
+
         public ResultModel<object> Update(int id, TaskEditDTO model)
         {
             ResultModel<object> result = new ResultModel<object>();
