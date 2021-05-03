@@ -21,6 +21,7 @@ namespace TODO.Repository.Models
 
         public virtual DbSet<Task> Tasks { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<TokenRefresh> TokenRefreshes { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
