@@ -61,6 +61,19 @@ namespace TODO.API
             services.AddScoped<ITask, TaskDAO>();
             services.AddScoped<ILogging, Logging>();
 
+            var tokenValidationParams = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidIssuer = Configuration["Security:Tokens:Issuer"],
+                ValidateAudience = true,
+                ValidAudience = Configuration["Security:Tokens:Audience"],
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Security:Tokens:Key"])),
+                RequireExpirationTime = false
+            };
+
+            services.AddSingleton(tokenValidationParams);
+
             //automammper
             var mapperConfig = new MapperConfiguration(mc =>
             {
@@ -77,8 +90,8 @@ namespace TODO.API
             });
 
             //basic authentication 
-            services.AddAuthentication("BasicAuthentication")
-                .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
+            //services.AddAuthentication("BasicAuthentication")
+            //    .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
 
             services
                 .AddAuthentication(options =>
@@ -91,16 +104,7 @@ namespace TODO.API
                 {
                     opt.RequireHttpsMetadata = false;
                     opt.SaveToken = true;
-                    opt.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuer = true,
-                        ValidIssuer = Configuration["Security:Tokens:Issuer"],
-                        ValidateAudience = true,
-                        ValidAudience = Configuration["Security:Tokens:Audience"],
-                        ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Security:Tokens:Key"])),
-                        RequireExpirationTime = false
-                    };
+                    opt.TokenValidationParameters = tokenValidationParams;
                 });
 
         }

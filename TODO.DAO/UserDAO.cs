@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using TODO.DTO;
 using TODO.Interfaces;
 using TODO.Repository.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace TODO.DAO
 {
@@ -26,7 +27,7 @@ namespace TODO.DAO
             ResultModel<UserDTO> result = new ResultModel<UserDTO>(); 
             try
             {
-                var data = _context.Users.Where(x => x.Username == username).FirstOrDefault();
+                var data = await _context.Users.Where(x => x.Username == username).FirstOrDefaultAsync();
 
                 if (data != null)
                 {
