@@ -119,6 +119,7 @@ namespace TODO.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TODO.API v1"));
             }
 
+
             app.UseHttpsRedirection();
 
             app.UseRouting();

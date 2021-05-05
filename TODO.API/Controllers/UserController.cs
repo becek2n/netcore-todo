@@ -88,7 +88,7 @@ namespace TODO.API.Controllers
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
 
                 },
-                expires: DateTime.UtcNow.AddMinutes(2),
+                expires: DateTime.UtcNow.AddMinutes(1),
                 notBefore: DateTime.UtcNow,
                 signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
             );

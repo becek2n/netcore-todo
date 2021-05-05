@@ -44,4 +44,9 @@ namespace TODO.DTO
         public DateTime ExpiryDate { get; set; } // Refresh token is long lived it could last for months.
 
     }
+
+    public class RequestResult {
+        public string State { get; set; }
+        public string Msg { get; set; }
+    }
 }
