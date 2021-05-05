@@ -81,9 +81,12 @@ namespace TODO.API.Controllers
                 audience: _configuration["Security:Tokens:Audience"],
                 claims: new[]
                 {
+                    new Claim(type: "Id", value: userId.ToString()),
                     new Claim(ClaimTypes.Name, userName),
                     new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
                     new Claim(ClaimTypes.Surname, fullName ?? string.Empty),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+
                 },
                 expires: DateTime.UtcNow.AddMinutes(2),
                 notBefore: DateTime.UtcNow,
@@ -92,7 +95,7 @@ namespace TODO.API.Controllers
 
             var jwtToken = new JwtSecurityTokenHandler().WriteToken(token);
 
-            var tokenRefresh = new TokenRefresh()
+            var tokenRefresh = new TokenRefreshDTO()
             {
                 JwtId = token.Id,
                 IsUsed = false,
@@ -103,8 +106,7 @@ namespace TODO.API.Controllers
                 Token = RandomString(25) + Guid.NewGuid()
             };
 
-            await _context.TokenRefreshes.AddAsync(tokenRefresh);
-            await _context.SaveChangesAsync();
+            await _user.SaveToken(tokenRefresh);
 
             return new AuthResultDTO()
             {
@@ -151,7 +153,7 @@ namespace TODO.API.Controllers
                 }
 
                 // validation 4 - validate existence of the token
-                var storedToken = await _context.TokenRefreshes.FirstOrDefaultAsync(x => x.Token == tokenRequest.Token);
+                var storedToken = await _context.TokenRefreshes.FirstOrDefaultAsync(x => x.Token == tokenRequest.RefreshToken);
 
                 if (storedToken == null)
                 {
@@ -204,10 +206,18 @@ namespace TODO.API.Controllers
 
                 // update current token 
 
-                storedToken.IsUsed = true;
-                _context.TokenRefreshes.Update(storedToken);
-                await _context.SaveChangesAsync();
+                var data = await _user.UpdateToken(tokenRequest.RefreshToken);
 
+                if (data.ResponseCode != "200")
+                {
+                    return new AuthResultDTO()
+                    {
+                        Success = false,
+                        Errors = new List<string>() {
+                                data.ResponseMessage
+                            }
+                    };
+                }
                 // Generate a new token
                 var user = await _context.Users.FindAsync(storedToken.UserId);
                 return await GenerateToken(user.Id, user.Username, user.Fullname);
@@ -217,14 +227,24 @@ namespace TODO.API.Controllers
                 if (ex.Message.Contains("Lifetime validation failed. The token is expired."))
                 {
 
-                    return new AuthResultDTO()
-                    {
-                        Success = false,
-                        Errors = new List<string>() {
-                            "Token has expired please re-login"
-                        }
-                    };
+                    //validate token refresh
+                    var storedToken = await _context.TokenRefreshes
+                        .FirstOrDefaultAsync(x => x.Token == tokenRequest.RefreshToken);
+                    
+                    var data = await _user.UpdateToken(tokenRequest.RefreshToken);
+                    
+                    if (data.ResponseCode != "200") {
+                        return new AuthResultDTO()
+                        {
+                            Success = false,
+                            Errors = new List<string>() {
+                                data.ResponseMessage
+                            }
+                        };
+                    } 
 
+                    var user = await _context.Users.FindAsync(storedToken.UserId);
+                    return await GenerateToken(user.Id, user.Username, user.Fullname);
                 }
                 else
                 {

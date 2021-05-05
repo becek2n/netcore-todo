@@ -59,5 +59,83 @@ namespace TODO.DAO
 
             return result;
         }
+
+        public async Task<ResultModel<object>> SaveToken(TokenRefreshDTO model) {
+            ResultModel<object> result = new ResultModel<object>();
+            try
+            {
+                using (var transaction = _context.Database.BeginTransaction()) {
+                    try
+                    {
+                        var token = _mapper.Map<TokenRefreshDTO, TokenRefresh>(model);
+
+                        await _context.TokenRefreshes.AddAsync(token);
+                        await _context.SaveChangesAsync();
+
+                        transaction.Commit();
+
+                        result.SetSuccess("success");
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        throw new Exception(ex.Message);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                result.SetFailed(ex.Message);
+                _logging.WriteErr(ex);
+            }
+
+            return result;
+        }
+
+        public async Task<ResultModel<object>> UpdateToken(string tokenRefresh)
+        {
+            ResultModel<object> result = new ResultModel<object>();
+            try
+            {
+                using (var transaction = _context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var data = await _context.TokenRefreshes
+                            .Where(x => x.Token == tokenRefresh && x.IsUsed == false)
+                            .FirstOrDefaultAsync();
+
+                        if (data != null) {
+
+                            data.IsUsed = true;
+                            _context.Entry(data).State = EntityState.Modified;
+                            await _context.SaveChangesAsync();
+
+                            transaction.Commit();
+                            result.SetSuccess("success");
+                        }
+                        else {
+
+                            result.SetFailed("Token not found!");
+                        }
+                        
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        throw new Exception(ex.Message);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                result.SetFailed(ex.Message);
+                _logging.WriteErr(ex);
+            }
+
+            return result;
+        }
+
+
     }
 }

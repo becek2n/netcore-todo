@@ -15,6 +15,8 @@ namespace TODO.Helpers
             CreateMap<TaskDTO, Task>();
             CreateMap<TaskEditDTO, Task>();
             CreateMap<User, UserDTO>();
+            CreateMap<TokenRefresh, TokenRefreshDTO>();
+            CreateMap<TokenRefreshDTO, TokenRefresh>();
         }
     }
 }
