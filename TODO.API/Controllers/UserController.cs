@@ -108,6 +108,10 @@ namespace TODO.API.Controllers
 
             await _user.SaveToken(tokenRefresh);
 
+            Response.Cookies.Append("X-Access-Token", jwtToken, new CookieOptions() { HttpOnly = true, SameSite = SameSiteMode.Strict });
+            Response.Cookies.Append("X-Refresh-Token", tokenRefresh.Token, new CookieOptions() { HttpOnly = true, SameSite = SameSiteMode.Strict });
+
+
             return new AuthResultDTO()
             {
                 Token = jwtToken,
