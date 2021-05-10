@@ -11,8 +11,7 @@ using TODO.Interfaces;
 
 namespace TODO.API.Controllers
 {
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    //[Authorize]
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
     [Route("[controller]")]
     public class TaskController : ControllerBase
@@ -33,9 +32,13 @@ namespace TODO.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult GetId(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            return Ok(_task.GetId(id));
+            var x = await _task.GetId(id);
+            if (id == 2) {
+                return Unauthorized();
+            }
+            return Ok(x);
         }
 
         [HttpPost]

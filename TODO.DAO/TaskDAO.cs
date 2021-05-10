@@ -7,6 +7,8 @@ using TODO.Repository.Models;
 using System.Linq;
 using AutoMapper.QueryableExtensions;
 using TODO.Helpers;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace TODO.DAO
 {
@@ -29,7 +31,7 @@ namespace TODO.DAO
                 {
                     try
                     {
-                        var task = _mapper.Map<TaskDTO, Task>(model);
+                        var task = _mapper.Map<TaskDTO, Repository.Models.Task>(model);
 
                         _context.Entry(task).State = Microsoft.EntityFrameworkCore.EntityState.Added;
                         _context.SaveChanges();
@@ -119,28 +121,29 @@ namespace TODO.DAO
             return result;
         }
 
-        public ResultModel<TaskDTO> GetId(int id)
+        public async Task<TaskDTO> GetId(int id)
         {
-            ResultModel<TaskDTO> result = new ResultModel<TaskDTO>();
-            try
-            {
+            //ResultModel<TaskDTO> result = new ResultModel<TaskDTO>();
+            //try
+            //{
                 var mapperConfig = new MapperConfiguration(mc => { mc.AddProfile(new MappingProfile()); });
 
-                var data = _context.Tasks
+                var data = await _context.Tasks
                     .Where(x => x.Id == id)
                     .ProjectTo<TaskDTO>(mapperConfig)
-                    .FirstOrDefault();
+                    .FirstOrDefaultAsync();
 
-                result.SetSuccess("success", data);
+                //result.SetSuccess("success", data);
 
-            }
-            catch (Exception ex)
-            {
-                result.SetFailed(ex.Message);
-                _logging.WriteErr(ex);
-            }
+                return data;
+            //}
+            //catch (Exception ex)
+            //{
+            //    result.SetFailed(ex.Message);
+            //    _logging.WriteErr(ex);
+            //}
 
-            return result;
+            //return result;
         }
 
         public ResultModel<object> Update(int id, TaskEditDTO model)

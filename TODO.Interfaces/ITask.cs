@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TODO.DTO;
 
 namespace TODO.Interfaces
@@ -10,6 +11,6 @@ namespace TODO.Interfaces
         ResultModel<object> Update(int id, TaskEditDTO model);
         ResultModel<object> Delete(int id);
         ResultModel<PagedResult<TaskDTO>> GetAll(int pageIndex, int pageSize, string search);
-        ResultModel<TaskDTO> GetId(int id);
+        Task<TaskDTO> GetId(int id);
     }
 }
